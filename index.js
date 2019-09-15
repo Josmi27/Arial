@@ -6,9 +6,12 @@ class FlightsFinder {
         this.flightEngineApiEndpoint = flightEngineApiEndpoint || 'http://localhost:3030';
     }
 
+    // Next steps: submit a form
+    // resulting page will search flights using the Javascript form object
+
     searchFlights(originAirport, destinationAirport, departureDate) {
         this.fetchFlights(originAirport, destinationAirport, departureDate, (flights) => {
-            console.log(flights[0].origin);
+            console.log(JSON.stringify(flights, null, 4));
             // if (flights.length > 0) {
             //     const flightResultsList = document.getElementById('search-results');
             //     this.removeFlightCards(flightResultsList);
@@ -37,7 +40,8 @@ class FlightsFinder {
             }
 
             const flights = JSON.parse(this.response);
-            responseCallback(flights ? flights.slice(0, 5) : []);
+            // You can change the second argument of the Array.slice() method to limit the number of flight results
+            responseCallback(flights ? flights.slice(0, 10) : []);
         });
         const originAirportParameter = originAirport ? `&origin=${originAirport}` : '';
         const destinationAirportParameter = destinationAirport ? `&destination=${destinationAirport}` : '';
